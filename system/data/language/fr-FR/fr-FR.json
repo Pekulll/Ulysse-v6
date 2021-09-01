@@ -1,0 +1,9 @@
+{
+    "intents": [
+        {
+            "tag": "example",
+            "patterns": ["Ceci est un exemple", "Exemple", "Ceci est un test."],
+            "responses": ["D'accord.", "Ok.", "Pas de soucis"]
+        }
+    ]
+}
