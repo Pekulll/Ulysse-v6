@@ -1,3 +1,9 @@
 {
-    "learning_loop": 300
+    "version": "6.0",
+    "language": "fr-FR",
+
+    "name": "Ulysse",
+    "listening_key": "",
+    "timeout": 60,
+    "threshold": 0.8
 }

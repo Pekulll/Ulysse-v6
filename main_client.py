@@ -11,11 +11,12 @@ while True:
     print(res)
 """
 
-from system.object.server.client_core import Client
+from system.object.server.client import UlysseClient
 import os
 
 os.system("")
 
-client = Client("192.168.1.24", 5050, True)
-client.connect()
-client.run()
+client = UlysseClient("192.168.1.24", 5050, True)
+
+if client.connect():
+    client.run()

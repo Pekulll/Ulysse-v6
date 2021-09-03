@@ -19,28 +19,39 @@ class Client():
     def connect(self):
         """
         Connect the client to the server.
+        :return True if connected
         """
         
         try:
             self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.client.connect(self.ADDR)
             self.on_client_connected()
+            self.connected = True
+            return True
         except Exception as e:
             self.on_client_error(e)
+            self.connected = False
+            return False
 
     def run(self):
         """
         Starts the run loop of the client.
         """
+        
         while True:
             msg = str(input("> "))
             self.send(msg)
 
-    def send(self, msg):
+    def send(self, request_name, request_content=""):
         """
         Send a request to the server.
         :param msg The request to send
         """
+        
+        if not self.connected:
+            return
+        
+        msg = str({"name": request_name, "content": request_content})
         
         if msg != "" and type(msg) == str:
             request = msg.encode(self.FORMAT)
@@ -64,8 +75,8 @@ class Client():
         request_length = int(request_length)
 
         if request_length:
-            request = self.client.recv(request_length).decode(self.FORMAT)
-            return request
+            request = str(self.client.recv(request_length).decode(self.FORMAT))
+            return dict(request)
 
         return None
 
@@ -74,7 +85,7 @@ class Client():
         Disconnect the client from the server.
         """
         
-        self.send(str({"type": "command", "command": "disconnect"}))
+        self.send("disconnect")
         self.on_client_disconnected()
     
     def on_client_connected(self):
@@ -115,4 +126,8 @@ class Client():
         :param client_error The raised error
         """
         
-        error(f"Server unreachable. Please contact an administrator to solve this issue. [{client_error}]")
+        if type(client_error) == ConnectionRefusedError:
+            error(f"Server unreachable. Please contact an administrator to solve this issue.")
+            return
+        
+        error(f"An error has occurred! {client_error}")
