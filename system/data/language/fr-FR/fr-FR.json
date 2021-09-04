@@ -4,6 +4,21 @@
             "tag": "example",
             "patterns": ["Ceci est un exemple", "Exemple", "Ceci est un test."],
             "responses": ["D'accord.", "Ok.", "Pas de soucis"]
+        },
+        {
+            "tag": "greetings",
+            "patterns": ["Bonjour.", "Salut.", "Wesh.", "Coucou.", "Yo.", "Bonsoir"],
+            "responses": ["Bonjour.", "Bonjour, comment allez-vous ?", "Salut."]
+        },
+        {
+            "tag": "health",
+            "patterns": ["Comment ça va ?", "Comment tu vas ?", "ça va ?", "Tu vas bien ?", "Vous allez bien ?", "ça roule ?", "Bien ou bien ?"],
+            "responses": ["Je me sens tranquille.", "Très bien, et vous ?", "Mieux que jamais !"]
+        },
+        {
+            "tag": "bye",
+            "patterns": ["Au revoir.", "A bientôt.", "A plus.", "Adieu.", "Bonne journée."],
+            "responses": ["Au revoir, passez une bonne journée."]
         }
     ]
 }

@@ -58,14 +58,17 @@ class UlysseClient(Client):
         
         from threading import Thread
         
-        Thread(target=self.listen_server, name="Ulysse.request").start()
+        rt = Thread(target=self.listen_server, name="Ulysse.request")
+        rt.start()
         if self.debug: debug(f"Ulysse.request thread started!")
         
         Thread(target=self.listen_keyboard, name="Ulysse.keyboard").start()
         if self.debug: debug(f"Ulysse.keyboard thread started!")
         
+        # Thread(target=self.listen_mic, name="Ulysse.mic").start()
         # if self.debug: debug(f"Ulysse.mic started!")
-        # self.listen_mic()
+        
+        rt.join()
     
     def listen_server(self):
         """
@@ -76,7 +79,7 @@ class UlysseClient(Client):
             return
         
         try: request = self.receive()
-        except: 
+        except Exception as e:
             error("Server has been disconnected! Stopping client...")
             log("Press any key to end...")
             self.connected = False
@@ -140,4 +143,6 @@ class UlysseClient(Client):
         Process a request.
         """
         
-        pass
+        if request['name'] == "speech":
+            log(request['content'])
+            # say(request['content'])

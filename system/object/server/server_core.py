@@ -46,7 +46,7 @@ class Server():
         self.on_client_connection(conn, addr)
         
         while True:
-            try: request:str = self.receive(conn)
+            try: request:dict = self.receive(conn)
             except Exception as e: self.on_client_exception(e, addr); return
             
             result = self.on_client_request(conn, addr, request)
@@ -74,20 +74,22 @@ class Server():
         """
         
         request_length = conn.recv(self.HEADER).decode(self.FORMAT)
+        request_length = int(request_length)
 
         if request_length:
-            request_length = int(request_length)
-            request = conn.recv(request_length).decode(self.FORMAT)
-            return request
+            request = str(conn.recv(request_length).decode(self.FORMAT))
+            return eval(request)
         
         return None
 
-    def send(self, conn, request):
+    def send(self, conn, request_name, request_content):
         """
         Send a request to a specific and established connection.
         :param conn The connection to send the request on
         :param request The request to send
         """
+        
+        request = str({'name': request_name, 'content': request_content})
         
         message = request.encode(self.FORMAT)
         msg_length = len(message)

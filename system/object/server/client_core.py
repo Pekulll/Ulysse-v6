@@ -76,7 +76,7 @@ class Client():
 
         if request_length:
             request = str(self.client.recv(request_length).decode(self.FORMAT))
-            return dict(request)
+            return eval(request)
 
         return None
 

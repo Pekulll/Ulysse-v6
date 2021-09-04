@@ -50,15 +50,15 @@ class Recognizer():
     def get_result(self, intents_list, intents_json):
         tag = intents_list[0]['intent']
         list_of_intents = intents_json['intents']
-        
+        print(intents_list[0])
         for i in list_of_intents:
             if i['tag'] == tag:
                 result = random.choice(i['responses'])
                 break
         
-        return result
+        return result, int(float(intents_list[0]['probability']) * 1000) / 1000
     
     def get_response(self, sentence):
         ints = self.predict_class(sentence)
-        res = self.get_result(ints, self.intents)
-        return res
+        res, probability = self.get_result(ints, self.intents)
+        return res, probability

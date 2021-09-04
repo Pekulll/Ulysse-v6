@@ -1,7 +1,7 @@
-from system.object.server.server_core import Server
+from system.object.server.server import UlysseServer
 import os
 
 os.system("")
 
-server = Server(debug=True)
+server = UlysseServer(debug=True)
 server.start()
