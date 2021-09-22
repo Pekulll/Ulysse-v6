@@ -27,6 +27,6 @@ class UlysseServer(Server):
             result, probability = self.recognizer.get_response(request['content'])
             
             if probability >= 0.8:
-                self.send(conn, 'speech', f"[{probability}] {result}")
+                self.send(conn, 'speech', f"[{probability}] {result}" if self.debug else f"{result}")
             else:
                 self.send(conn, 'speech', f"Probability too low: {probability}.")

@@ -1,7 +1,9 @@
 from system.object.server.client_core import Client
 from system.object.debug import log, warn, error, debug
+from system.object.ui.main_screen import MainScreen
 
 from speech_recognition import Microphone, Recognizer
+from PyQt5.QtWidgets import *
 
 import json
 import os
@@ -62,8 +64,11 @@ class UlysseClient(Client):
         rt.start()
         if self.debug: debug(f"Ulysse.request thread started!")
         
-        Thread(target=self.listen_keyboard, name="Ulysse.keyboard").start()
-        if self.debug: debug(f"Ulysse.keyboard thread started!")
+        if self.debug:
+            Thread(target=self.listen_keyboard, name="Ulysse.keyboard").start()
+            debug(f"Ulysse.keyboard thread started!")
+        else:
+            Thread(target=self.create_gui, name="Ulysse.gui", daemon=True).start()
         
         # Thread(target=self.listen_mic, name="Ulysse.mic").start()
         # if self.debug: debug(f"Ulysse.mic started!")
@@ -136,6 +141,29 @@ class UlysseClient(Client):
         
         self.listen_mic()
     
+    def create_gui(self):
+        """
+        Create the app's GUI
+        """
+        
+        self.app = QApplication([])
+        self.window = MainScreen(self.on_send)
+        self.app.exec_()
+    
+    def on_send(self):
+        """
+        Method call when the user press the "Send" button.
+        Used to answer to the user.
+        """
+        
+        speech = self.window.get_user_input()
+        log(f"[USER] {speech}")
+        
+        if not self.debug:
+            self.window.append(f"[ <span style=\"color: #00c4ff;\">-User-</span> ] {speech}")
+        
+        if speech != "":
+            self.send("speech", speech)
     
     
     def process_request(self, request: dict):
@@ -146,3 +174,6 @@ class UlysseClient(Client):
         if request['name'] == "speech":
             log(request['content'])
             # say(request['content'])
+            
+            if not self.debug:
+                self.window.append(f"[ <span style=\"color: #00ff1e;\">{self.NAME}</span> ] {request['content']}")

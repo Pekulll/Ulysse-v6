@@ -16,7 +16,7 @@ import os
 
 os.system("")
 
-client = UlysseClient("192.168.1.24", 5050, True)
+client = UlysseClient("192.168.1.24", 5050, False)
 
 if client.connect():
     client.run()
