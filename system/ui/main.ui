@@ -58,13 +58,13 @@ font-size: 15px;</string>
      <rect>
       <x>20</x>
       <y>660</y>
-      <width>871</width>
+      <width>981</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Courier new,serif</family>
+      <family>Consolas,serif</family>
       <pointsize>-1</pointsize>
      </font>
     </property>
@@ -72,32 +72,7 @@ font-size: 15px;</string>
      <string notr="true">color: #fff;
 border-radius: 5px;
 border: 2px solid #fff;
-font-family: &quot;Courier new&quot;, serif;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="send_button">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>660</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Courier new,serif</family>
-      <pointsize>-1</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #fff;
-border: 2px solid #fff;
-border-radius: 5px;
-font-family: &quot;Courier new&quot;, serif;</string>
-    </property>
-    <property name="text">
-     <string>Send</string>
+font-family: &quot;Consolas&quot;, serif;</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="interactions">
@@ -111,14 +86,14 @@ font-family: &quot;Courier new&quot;, serif;</string>
     </property>
     <property name="font">
      <font>
-      <family>Courier new,serif</family>
+      <family>Consolas,serif</family>
       <pointsize>-1</pointsize>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #fff;
 border: 0px;
-font-family: &quot;Courier new&quot;, serif;</string>
+font-family: &quot;Consolas&quot;, serif;</string>
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -136,8 +111,8 @@ font-family: &quot;Courier new&quot;, serif;</string>
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Courier new,serif'; font-size:15px; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Consolas,serif'; font-size:15px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier new,serif';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="textInteractionFlags">
      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>

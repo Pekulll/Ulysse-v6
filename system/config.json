@@ -5,5 +5,8 @@
     "name": "Ulysse",
     "listening_key": "",
     "timeout": 60,
-    "threshold": 0.8
+    "threshold": 0.8,
+
+    "house_name": "Test",
+    "room_name": "Bedroom"
 }

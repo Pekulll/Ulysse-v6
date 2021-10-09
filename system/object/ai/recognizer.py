@@ -11,7 +11,7 @@ from tensorflow.keras.models import load_model
 class Recognizer():
     def __init__(self, language='fr-FR'):
         self.lemmatizer = WordNetLemmatizer()
-        self.intents = json.loads(open(f"./system/data/language/{language}/fr-FR.json").read())
+        self.intents = json.loads(open(f"./system/data/language/{language}/fr-FR.json", encoding="utf-8").read())
 
         self.words = pickle.load(open(f"./system/data/language/{language}/words.pkl", "rb"))
         self.classes = pickle.load(open(f"./system/data/language/{language}/classes.pkl", "rb"))
@@ -50,15 +50,31 @@ class Recognizer():
     def get_result(self, intents_list, intents_json):
         tag = intents_list[0]['intent']
         list_of_intents = intents_json['intents']
-        print(intents_list[0])
+        
         for i in list_of_intents:
             if i['tag'] == tag:
                 result = random.choice(i['responses'])
                 break
         
-        return result, int(float(intents_list[0]['probability']) * 1000) / 1000
+        return tag, result, int(float(intents_list[0]['probability']) * 1000) / 1000
     
-    def get_response(self, sentence):
-        ints = self.predict_class(sentence)
-        res, probability = self.get_result(ints, self.intents)
-        return res, probability
+    def get_result_without_neural(self, sentence):
+        sentence = " ".join(self.clean_up_sentence(sentence))
+        
+        for item in self.intents['intents']:
+            for pattern in item['patterns']:
+                if pattern.lower() in sentence.lower():
+                    sentence = sentence.lower().replace(pattern.lower(), "")
+                    sentence = "" if sentence == None else sentence
+                    return item['tag'], sentence
+        
+        return None, None
+    
+    def get_response(self, sentence, ignore_neural=False):
+        if not ignore_neural:
+            ints = self.predict_class(sentence)
+            tag, res, probability = self.get_result(ints, self.intents)
+            return tag, res, probability
+        else:
+            tag, result = self.get_result_without_neural(sentence)
+            return tag, result, None

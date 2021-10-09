@@ -7,12 +7,17 @@ class MainScreen(QMainWindow):
     The main window of the Ulysse (v6) GUI.
     """
     
-    def __init__(self, on_send):
+    def __init__(self, placeholder, on_send, on_close):
         super(MainScreen, self).__init__()
         uic.loadUi("./system/ui/main.ui", self)
+        self.on_close = on_close
+        
         self.interactions.ensureCursorVisible()
+        self.user_input.setPlaceholderText(placeholder) 
+    
         self.show()
-        self.send_button.clicked.connect(on_send)
+        
+        self.user_input.returnPressed.connect(on_send)
     
     def get_user_input(self) -> str:
         """
@@ -34,3 +39,7 @@ class MainScreen(QMainWindow):
         self.interactions.append(text)
         sleep(0.001)
         self.interactions.verticalScrollBar().setValue(self.interactions.verticalScrollBar().maximum())
+    
+    def closeEvent(self, event):
+        self.on_close()
+        event.accept()

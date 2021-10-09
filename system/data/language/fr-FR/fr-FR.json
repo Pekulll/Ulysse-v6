@@ -19,6 +19,16 @@
             "tag": "bye",
             "patterns": ["Au revoir.", "A bientôt.", "A plus.", "Adieu.", "Bonne journée."],
             "responses": ["Au revoir, passez une bonne journée."]
+        },
+        {
+            "tag": "cmd_repeat",
+            "patterns": ["Répète", "Dis", "Dit", "Parle"],
+            "responses": [""]
+        },
+        {
+            "tag": "cmd_tell",
+            "patterns": ["Transmet", "Envoie"],
+            "responses": [""]
         }
     ]
 }

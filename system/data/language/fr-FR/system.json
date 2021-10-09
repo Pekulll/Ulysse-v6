@@ -1,5 +1,8 @@
 {
     "sys_lang_file_loaded": "[SYSTEM] La langue fr-FR a été chargée avec succès !",
+
+    "ui_placeholder": "Tapez quelque chose...",
+
     "voice_listenning": "Je vous écoute...",
     "voice_analyze": "J'analyse vos paroles...",
     "voice_not_recognize": "Je n'ai détecté aucune voix humaine..."

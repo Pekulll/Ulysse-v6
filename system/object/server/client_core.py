@@ -40,7 +40,7 @@ class Client():
         
         while True:
             msg = str(input("> "))
-            self.send(msg)
+            self.send('basic_input', msg)
 
     def send(self, request_name, request_content=""):
         """

@@ -54,8 +54,8 @@ class Server():
             # Check if the server must close the connection after client's request
             if result: break
 
-        conn.close()
         self.on_client_disconnection(conn, addr)
+        conn.close()
 
     def handle_server_command(self):
         """
@@ -153,6 +153,7 @@ class Server():
         :param addr The client's address
         """
         
+        self.send(conn, "disconnect", "")
         log(f"[{addr[0]}] has been disconnected!")
     
     def on_client_exception(self, client_error, addr):
