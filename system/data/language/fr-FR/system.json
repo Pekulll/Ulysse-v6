@@ -1,9 +1,15 @@
 {
-    "sys_lang_file_loaded": "[SYSTEM] La langue fr-FR a été chargée avec succès !",
+    "sys_lang_file_loaded": "[SYSTEM] La langue fr-FR a été chargé avec succès !",
+    "sys_contact_file_loaded": "[SYSTEM] Les contacts ont été chargé avec succès !",
 
     "ui_placeholder": "Tapez quelque chose...",
 
     "voice_listenning": "Je vous écoute...",
     "voice_analyze": "J'analyse vos paroles...",
-    "voice_not_recognize": "Je n'ai détecté aucune voix humaine..."
+    "voice_not_recognize": "Je n'ai détecté aucune voix humaine...",
+
+    "user_name": "~User~",
+
+    "message_from": "Message de",
+    "message_ignored": "Message de {sender} ignoré car il ne fait pas parti des contacts."
 }

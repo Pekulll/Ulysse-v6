@@ -27,7 +27,7 @@
         },
         {
             "tag": "cmd_tell",
-            "patterns": ["Transmet", "Envoie"],
+            "patterns": ["Transmet à", "Envoie à"],
             "responses": [""]
         }
     ]

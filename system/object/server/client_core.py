@@ -25,8 +25,8 @@ class Client():
         try:
             self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.client.connect(self.ADDR)
-            self.on_client_connected()
             self.connected = True
+            self.on_client_connected()
             return True
         except Exception as e:
             self.on_client_error(e)
@@ -94,6 +94,14 @@ class Client():
         """
         
         log(f"This client has successfully been connected to the server [{self.SERVER}].")
+        self.oauth()
+    
+    def oauth(self):
+        """
+        Method calls to authentificate the client.
+        """
+        
+        warn("This client don't have an oauth method.")
     
     def on_request_sended(self, request):
         """

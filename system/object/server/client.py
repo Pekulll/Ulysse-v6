@@ -12,11 +12,15 @@ import importlib
 class UlysseClient(Client):
     def __init__(self, server, port, debug=False):
         super().__init__(server, port, debug)
+        
         self.console = Console()
+        
         self.load_configuration()
         self.load_language()
+        self.load_contact()
     
     
+    """ Load data section """
     
     def load_configuration(self):
         """
@@ -31,6 +35,8 @@ class UlysseClient(Client):
                 self.LANGUAGE = config['language']
                 self.TIMEOUT = config['timeout']
                 self.THRESHOLD = config['threshold']
+                self.HOUSE = config['house_name']
+                self.ROOM = config['room_name']
         except Exception as e:
             error(f"[SYSTEM] Unable to load config.json!")
         else:
@@ -49,10 +55,37 @@ class UlysseClient(Client):
         else:
             log(self.language['sys_lang_file_loaded'])
     
+    def load_contact(self):
+        """
+        Load the assistant's contact file
+        """
+        
+        try:
+            with open(f"./system/data/contact.json", "r", encoding="utf-8") as json_contact:
+                self.contacts = json.load(json_contact)
+        except Exception as e:
+            error(f"[SYSTEM] Unable to load './system/data/contact.json'!")
+        else:
+            log(self.language['sys_contact_file_loaded'])
     
+    """ END """
+    
+    
+    def oauth(self):
+        oauth_request = {
+            'local_version': self.VERSION,
+            'local_name': self.NAME,
+            'house_name': self.HOUSE,
+            'room_name': self.ROOM
+        }
+        
+        self.send('oauth', str(oauth_request))
     
     def run(self):
         self.create_thread()
+    
+    
+    """ Thread's creation section """
     
     def create_thread(self):
         """
@@ -69,8 +102,8 @@ class UlysseClient(Client):
         if self.debug:
             Thread(target=self.listen_keyboard, name="Ulysse.keyboard").start()
             debug(f"Ulysse.keyboard thread started!")
-        else:
-            Thread(target=self.create_gui, name="Ulysse.gui", daemon=True).start()
+        
+        Thread(target=self.create_gui, name="Ulysse.gui", daemon=True).start()
         
         # Thread(target=self.listen_mic, name="Ulysse.mic").start()
         # if self.debug: debug(f"Ulysse.mic started!")
@@ -143,6 +176,8 @@ class UlysseClient(Client):
         
         self.listen_mic()
     
+    """ END """
+    
     
     """ Interface section """
     
@@ -152,20 +187,19 @@ class UlysseClient(Client):
         """
         
         self.app = QApplication([])
-        self.window = MainScreen(self.language['ui_placeholder'], self.on_send, self.on_close_gui)
+        self.window = MainScreen(self.language['ui_placeholder'], self.on_submit, self.on_close_gui)
         self.app.exec_()
     
-    def on_send(self):
+    def on_submit(self):
         """
-        Method call when the user press the "Send" button.
+        Method call when the user press the ENTER key.
         Used to answer to the user.
         """
         
         speech = self.window.get_user_input()
-        log(f"[USER] {speech}")
         
-        if not self.debug:
-            self.window.append(f"[ <span style=\"color: #00c4ff;\">-User-</span> ] {speech}")
+        log(f"[USER] {speech}")
+        self.window.append(f"[ <span style=\"color: #00c4ff;\"> {self.language.get('user_name')} </span> ] {speech}")
         
         if speech != "":
             self.send("speech", speech)
@@ -180,27 +214,53 @@ class UlysseClient(Client):
     
     """ END """
     
+    
+    """ Processing section """
+    
     def process_request(self, request: dict):
         """
         Process a request.
+        :param request The request to process
         """
         
         if request['name'] == "speech":
             self.write(request['content'])
             # say(request['content'])
+        elif request['name'] == "tell":
+            tell_request = eval(request['content'])
+            
+            for contact in self.contacts:
+                if contact['house_name'].lower() == tell_request['from']['house_name'].lower():
+                    if contact['room_name'].lower() == tell_request['from']['room_name'].lower():
+                        self.write(f"[ {self.language.get('message_from')} <span style=\"color: #00c4ff;\">{contact['contact_name']}</span> ] {tell_request['message']}")
+                        return
+            
+            debug(self.language.get('message_ignored').format(sender=f"{tell_request['from']['house_name']}"))
         elif 'cmd_' in request['name']:
             self.process_command(request['name'], request['content'])
     
     def process_command(self, command_tag, command_content):
+        """
+        Process an assistant command.
+        :param command_tag The tag/name of the command
+        :param command_content The content/args of the command
+        """
+        
         try:
-            command = importlib.import_module(f"system.command.{command_tag}").Command(self)
+            command = importlib.import_module(f"system.command.{command_tag}").AssistantCommand(self)
             command.execute(command_content)
         except Exception as e:
             error(f"Command error! {e}")
-            
+    
+    """ END """
+    
     def write(self, message):
-        if not debug:
-            self.window.append(f"[ <span style=\"color: #00ff1e;\">{self.NAME}</span> ] {message}")
+        """
+        Write a message in the log and/or on the GUI.
+        :param message The message to write
+        """
+        
+        self.window.append("[ <span style=\"color: #00ff1e;\">{self.NAME}</span> ] {message}".format(**locals(), **globals()))
         
         if self.debug:
             log(message)
