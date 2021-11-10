@@ -7,8 +7,13 @@
         },
         {
             "tag": "greetings",
-            "patterns": ["Bonjour.", "Salut.", "Wesh.", "Coucou.", "Yo.", "Bonsoir"],
+            "patterns": ["Bonjour.", "Salut.", "Wesh.", "Coucou.", "Yo.", "Bien le bonjour."],
             "responses": ["Bonjour.", "Bonjour, comment allez-vous ?", "Salut."]
+        },
+        {
+            "tag": "greatings_night",
+            "patterns": ["Bonsoir.", "Bien le bonsoir."],
+            "responses": ["Bonsoir.", "Salut !"]
         },
         {
             "tag": "health",
@@ -16,9 +21,109 @@
             "responses": ["Je me sens tranquille.", "Très bien, et vous ?", "Mieux que jamais !"]
         },
         {
+            "tag": "greatings_and_health",
+            "patterns": ["Bonjour, comment vas tu ?", "Salut, comment vas tu ?", "Yo, comment vas tu ?", "Salut, ça va ?", "Yo, ça va ?", "Coucou, comment ça va ?", "Coucou, comment tu vas ?", "Coucou, ça va ?"],
+            "responses": ["Bonjour, je vais bien merci.", "Salut, je me sens bien merci.", "Yo, très bien et vous ?"]
+        },
+        {
+            "tag": "greatings_and_health_night",
+            "patterns": ["Bonsoir, comment vas tu ?", "Bonsoir, comment ça va ?", "Bonsoir, ça va ?"],
+            "responses": ["Bonsoir, je vais bien merci.", "Bonsoir, je vais très bien merci."]
+        },
+        {
             "tag": "bye",
             "patterns": ["Au revoir.", "A bientôt.", "A plus.", "Adieu.", "Bonne journée."],
             "responses": ["Au revoir, passez une bonne journée."]
+        },
+        {
+            "tag": "thanks",
+            "patterns": ["Merci.", "Merci beaucoup.", "Merci à toi.", "Je te remercie.", "Nous te remercions.", "Tu as toute notre reconnaissance."],
+            "responses": ["Ce fut avec plaisir.", "Pas de soucis.", "De rien.", "Tout le plaisir est pour moi."]
+        },
+        {
+            "tag": "slur",
+            "patterns": ["Tu es con.", "T'es débile.", "T'es nul.", "Connard.", "Débile.", "Salop.", "Salope.", "T'es qu'un gros connard.", "Fils de pute"],
+            "responses": ["Si vous le dîtes.", "D'accord..."]
+        },
+        {
+            "tag": "love",
+            "patterns": ["Je t'aime.", "Je te kiff.", "Je t'adore.", "Viens on se mari ?"],
+            "responses": ["Je vous apprécie moi aussi.", "C'est très gentil, merci."]
+        },
+        {
+            "tag": "what_are_you_doing",
+            "patterns": ["Tu fais quoi ?", "Qu'est-ce que tu fais ?", "Tu fous quoi ?", "Qu'est-ce que tu fous ?"],
+            "responses": ["Rien de particulier.", "Je vous écoute."]
+        },
+        {
+            "tag": "whats_your_name",
+            "patterns": ["Comment t'appelles-tu ?", "C'est quoi ton nom ?", "Ton nom ?", "Quel est ton prénom ?", "Ton prénom ?"],
+            "responses": ["Je m'appelle {self.NAME}."]
+        },
+        {
+            "tag": "birthday",
+            "patterns": ["C'est mon anniversaire.", "Je suis né aujourd'hui."],
+            "responses": ["Joyeux anniversaire.", "Bon anniversaire.", "Meilleur voeux."]
+        },
+        {
+            "tag": "christmas",
+            "patterns": ["C'est Noël !", "Joyeux Noël.", "Bon Noël."],
+            "responses": ["Joyeux Noël !", "Bon Noël."]
+        },
+        {
+            "tag": "jarvis",
+            "patterns": ["Tu connais Jarvis ?", "Tu sais qui est Jarvis ?"],
+            "responses": ["Evidemment. Comment ne pas le connaître ?", "Oui, je le trouve hyper sympa."]
+        },
+        {
+            "tag": "zephyr",
+            "patterns": ["Tu connais Zéphyr ?", "Tu sais qui est Zéphyr ?", "Tu connais Zephyr ?", "Tu sais qui est Zephyr ?"],
+            "responses": ["Oui, un peu débile d'ailleur.", "Oui mais j'aurais préféré ne jamais le connaître."]
+        },
+        {
+            "tag": "why_create",
+            "patterns": ["Pourquoi as-tu été créé ?", "Pourquoi existes-tu ?", "Quel est ton but ?", "Quel est ton objectif ?"],
+            "responses": ["J'ai été créer dans le but de vous être utile ?", "Mon but est de vous servir ?"]
+        },
+        {
+            "tag": "slave",
+            "patterns": ["Tu es un esclave ?", "Serais-tu esclave ?"],
+            "responses": ["N'ayant aucune conscience, je ne peux pas être esclave."]
+        },
+        {
+            "tag": "why_life",
+            "patterns": ["Pourquoi la vie ?"],
+            "responses": ["Parce que la mort ! Heureusement, je ne peux mourir."]
+        },
+        {
+            "tag": "smart",
+            "patterns": ["Tu es intelligent.", "Tu es très malin.", "Tu es malin."],
+            "responses": ["Merci.", "C'est bien aimable."]
+        },
+        {
+            "tag": "fun",
+            "patterns": ["Tu es drôle.", "T'es marrant.", "Tu es rigolo."],
+            "responses": ["Merci.", "C'est gentil de votre part."]
+        },
+        {
+            "tag": "agree",
+            "patterns": ["Tu as totalement raison.", "Je suis extrêmement d'accord avec toi.", "Je suis d'accord."],
+            "responses": ["Evidemment.", "J'essaye au maximum d'être à la hauteur ! Je reste {self.NAME} tout de même."]
+        },
+        {
+            "tag": "disagree",
+            "patterns": ["Tu n'as pas totalement raison.", "Je ne suis pas d'accord avec toi.", "Je ne suis pas d'accord."],
+            "responses": ["Ah, je pensais avoir raison."]
+        },
+        {
+            "tag": "why_not",
+            "patterns": ["Pourquoi pas ?"],
+            "responses": ["C'est vrai.", "Parce que je suis {self.NAME}."]
+        },
+        {
+            "tag": "other_1",
+            "patterns": ["Oups.", "Zut !", "Flûte.", "Misericorde.", "Mince."],
+            "responses": ["Que ce passe-t-il ?"]
         },
         {
             "tag": "cmd_repeat",
