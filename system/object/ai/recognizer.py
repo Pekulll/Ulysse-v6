@@ -1,12 +1,12 @@
-import random
 import json
+import random
+
 import pickle
-import numpy as np
+from nltk.stem import WordNetLemmatizer
+from tensorflow.keras.models import load_model
 
 import nltk
-from nltk.stem import WordNetLemmatizer
-
-from tensorflow.keras.models import load_model
+import numpy as np
 
 class Recognizer():
     def __init__(self, language='fr-FR'):
@@ -33,7 +33,7 @@ class Recognizer():
         
         return np.array(bag)
 
-    def predict_class(self, sentence):
+    def predict_class(self, sentence): 
         bow = self.bag_of_words(sentence)
         res = self.model.predict(np.array([bow]))[0]
         ERROR_THRESHOLD = 0.25

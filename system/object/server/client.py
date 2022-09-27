@@ -4,6 +4,7 @@ from system.object.ui.main_screen import MainScreen
 from system.object.console import Console
 
 from speech_recognition import Microphone, Recognizer
+from subprocess import call
 from PyQt5.QtWidgets import *
 
 import json
@@ -225,7 +226,7 @@ class UlysseClient(Client):
         
         if request['name'] == "speech":
             self.write(request['content'])
-            # say(request['content'])
+            self.say(request['content'].split('] ')[1] if request['content'].startswith('[') else request['content'])
         elif request['name'] == "tell":
             tell_request = eval(request['content'])
             
@@ -233,6 +234,7 @@ class UlysseClient(Client):
                 if contact['house_name'].lower() == tell_request['from']['house_name'].lower():
                     if contact['room_name'].lower() == tell_request['from']['room_name'].lower():
                         self.write(f"[ {self.language.get('message_from')} <span style=\"color: #00c4ff;\">{contact['contact_name']}</span> ] {tell_request['message']}")
+                        self.say(f"[ {self.language.get('message_from')} {contact['contact_name']} ] {tell_request['message']}")
                         return
             
             debug(self.language.get('message_ignored').format(sender=f"{tell_request['from']['house_name']}"))
@@ -254,6 +256,9 @@ class UlysseClient(Client):
     
     """ END """
     
+    
+    """ Answer to user (text and tts) """
+    
     def write(self, message):
         """
         Write a message in the log and/or on the GUI.
@@ -264,3 +269,8 @@ class UlysseClient(Client):
         
         if self.debug:
             log(message)
+    
+    def say(self, message):
+        call(["python", "./system/object/voice.py", message, self.LANGUAGE])
+    
+    """ END """

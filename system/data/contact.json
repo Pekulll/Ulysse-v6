@@ -1,12 +1,7 @@
 [
     {
         "contact_name": "Test",
-        "house_name": "Test",
-        "room_name": "Bedroom"
-    },
-    {
-        "contact_name": "Test2",
-        "house_name": "Test2",
+        "house_name": "Test_Joel",
         "room_name": "Bedroom"
     }
 ]

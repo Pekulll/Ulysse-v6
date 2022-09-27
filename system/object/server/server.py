@@ -1,20 +1,27 @@
 from system.object.server.server_core import Server
 from system.object.debug import log, warn, error, debug
 
-from system.object.ai.recognizer import Recognizer
 from system.object.ai.trainer import create_model
+from system.object.ai.recognizer import Recognizer
 
 from system.object.console import Console
+
+from time import time
 
 class UlysseServer(Server):
     def __init__(self, port=5050, debug=False):
         super().__init__(port, debug)
-        #create_model(epochs=30000)
+        
+        # start = time()
+        # create_model(epochs=100000)
+        # end = time()
+        
         self.recognizer = Recognizer()
         self.console = Console()
         self.instances = []
         
         self.console.execute_cmd("clear")
+        # warn(f"[SYSTEM] Model created! Time elapsed: {(end - start):.2f} seconds.")
     
     def on_client_request(self, conn, addr, request) -> bool:
         """
@@ -30,6 +37,15 @@ class UlysseServer(Server):
             return True
 
         if request['name'] == "disconnect":
+            index = -1
+            
+            for i in range(len(self.instances)):
+                if self.instances[i]['conn'] == conn:
+                    index = i
+            
+            if index != -1:
+                del self.instances[index]
+                
             return True
         
         if request['name'] == "oauth":

@@ -3,5 +3,5 @@ import os
 
 os.system("")
 
-server = UlysseServer(debug=False)
+server = UlysseServer(port=1509, debug=False)
 server.start()

@@ -1,16 +1,16 @@
-import random
-import json
-import pickle
-import numpy as np
-
-import nltk
-from nltk.stem import WordNetLemmatizer
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Activation, Dropout
-from tensorflow.keras.optimizers import SGD
-
 def create_model(language='fr-FR', epochs=200):
+    import random
+    import json
+    import pickle
+    import numpy as np
+
+    import nltk
+    from nltk.stem import WordNetLemmatizer
+
+    from tensorflow.keras.models import Sequential
+    from tensorflow.keras.layers import Dense, Activation, Dropout
+    from tensorflow.keras.optimizers import SGD
+
     lemmatizer = WordNetLemmatizer()
 
     intents = json.loads(open(f"./system/data/language/{language}/{language}.json").read())
